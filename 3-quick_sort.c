@@ -27,14 +27,28 @@ void swap(int *x, int *y)
  */
 size_t lomuto_part(int *array, size_t size, size_t low, size_t high)
 {
-	int x, z = array[high], y;
-
+	int *pivot;
+	size_t x, y;
+	pivot = array + high;
 	for (x = y = low; y < high; y++)
 	{
-		if (array[y] < z)
-			swap(array, size, &array[y], &array[x++]);
-	swap(array, size, &array[x], &array[high]);
+		if (array[y] < *pivot)
+		{
+			if (x < y)
+			{
+				swap(array + y, array + x);
+				print_array(array, size);
+			}
+			x++;
+		}
 	}
+
+	if (array[x] > *pivot)
+	{
+		swap(array + x, pivot);
+		print_array(array, size);
+	}
+
 	return (x);
 }
 
